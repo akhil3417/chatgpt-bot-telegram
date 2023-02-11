@@ -3,7 +3,12 @@ import openai
 import os
 from gtts import gTTS
 # initialize OpenAI API client
-openai.api_key = " enter open ai api key here "
+#openai.api_key = " enter openai api key here "
+
+# Set the environment variable on your system with the command:
+# export API_KEY="your_api_key"
+
+openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 bot = telebot.TeleBot(' enter telegram token here ')
 
