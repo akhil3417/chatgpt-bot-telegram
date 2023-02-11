@@ -176,13 +176,20 @@ def generate_gptaudio(message):
 
         # Convert the text to audio using gTTS library
         tts = gTTS(response_text, lang='en')
-        tts.save("dev_@dhir4j.mp3")
+
+        # Get the first 4 words of the prompt
+        prompt_words = prompt.split()[:4]
+        prompt_str = '_'.join(prompt_words)
+
+        file_name = time.strftime("%Y%m%d-%H%M%S") + "_" + prompt_str + ".mp3"
+        tts.save(file_name)
 
         # Send the audio file
-        with open("dev_@dhir4j.mp3", "rb") as f:
-            bot.send_audio(chat_id=chat_id, reply_to_message_id=message.message_id ,audio=f)
+        with open(file_name, "rb") as f:
+            bot.send_audio(chat_id=chat_id, reply_to_message_id=message.message_id, audio=f)
 
-        os.remove("dev_@dhir4j.mp3") # Delete the audio file
+        os.remove(file_name) # Delete the audio file
+
         print(f'\n\n=======================================================================================\n{message.from_user.username} : {prompt} \n\nChatGPT : {response["choices"][0]["text"]}')
     except Exception as e:
         try:
