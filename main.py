@@ -10,7 +10,10 @@ from gtts import gTTS
 
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
-bot = telebot.TeleBot(' enter telegram token here ')
+# Setup telegram bot auth
+#bot = telebot.TeleBot(' enter telegram token here ')
+bot_api = os.environ.get("TELEGA_BOT_API")
+bot = telebot.TeleBot(bot_api)
 
 
 @bot.message_handler(commands=['reply'])
