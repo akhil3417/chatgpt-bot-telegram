@@ -206,11 +206,18 @@ def tts_handler(message):
         else:
             text = message.text.split(" ", maxsplit=1)[1]
 
+         # Get the first 4 words of the prompt
+        prompt_words = text.split()[:4]
+        prompt_str = '_'.join(prompt_words)
+
         tts = gTTS(text=text, lang='en')
-        tts.save("tts_@dhir4j.mp3")
-        with open("tts_@dhir4j.mp3", "rb") as f:
+        file_name = time.strftime("%Y%m%d-%H%M%S") + "_" + prompt_str + ".mp3"
+        tts.save(file_name)
+
+        with open(file_name, "rb") as f:
             bot.send_audio(chat_id=message.chat.id, reply_to_message_id=message.message_id, audio=f)
-        os.remove("tts_@dhir4j.mp3")
+        
+        os.remove(file_name)
     except Exception as e:
         try:
             bot.send_message(chat_id=message.chat.id, reply_to_message_id=message.message_id, text="Reply to a message.")
