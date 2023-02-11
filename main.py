@@ -1,6 +1,7 @@
 import telebot
 import openai
 import os
+import time
 from gtts import gTTS
 # initialize OpenAI API client
 #openai.api_key = " enter openai api key here "
